@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Edit Expense{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Edit Expense</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Category</label>
+        <select name="category">
+            <option {% if selected_food %}selected{% endif %}>Food</option>
+            <option {% if selected_travel %}selected{% endif %}>Travel</option>
+            <option {% if selected_shopping %}selected{% endif %}>Shopping</option>
+            <option {% if selected_rent %}selected{% endif %}>Rent</option>
+            <option {% if selected_others %}selected{% endif %}>Others</option>
+        </select>
+
+        <label>Amount</label>
+        <input type="number" step="0.01" name="amount" value="{{ expense.amount }}">
+
+        <label>Description</label>
+        <textarea name="description">{{ expense.description }}</textarea>
+
+        <button type="submit">Update Expense</button>
+    </form>
+
+    <a class="back-link" href="{% url 'dashboard' %}">⬅ Back</a>
+</div>
+{% endblock %}
